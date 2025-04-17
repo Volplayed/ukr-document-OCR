@@ -119,3 +119,8 @@ cython_debug/
 
 # VS Code
 .vscode/
+
+# Gradio cache and temporary files
+gradio/
+gradio_cache/
+.gradio/
