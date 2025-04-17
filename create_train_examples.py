@@ -92,9 +92,32 @@ def make_dirty(text, strength=0.1):
                 else:
                     # add a random character
                     index = random.randint(0, len(word))
-                    char = random.choice('abcdefghijklmnopqrstuvwxyz0123456789 ')
+                    char = random.choice('abcdefghijklmnopqrstuvwxyz0123456789')
                     word = word[:index] + char + word[index:]
                 words[i] = word
+
+        # randomly swap two adjacent words
+        for i in range(len(words) - 1):
+            if random.random() < strength/10:
+                words[i], words[i + 1] = words[i + 1], words[i]
+                break
+
+        # randomly split the word into two parts
+        for i in range(len(words)):
+            if random.random() < strength:
+                word = words[i]
+                if len(word) < 2:
+                    continue
+                index = random.randint(1, len(word) - 1)
+                words[i] = word[:index] + ' ' + word[index:]
+                break
+        
+        # randomly join two adjacent words
+        for i in range(len(words) - 1):
+            if random.random() < strength:
+                words[i] = words[i] + words[i + 1]
+                del words[i + 1]
+                break
 
         # join the words back together
         line = ' '.join(words)
@@ -180,15 +203,54 @@ def create_json_training_file(json_path, target_folder, examples_folder):
     with open(json_path, 'w', encoding='utf-8') as json_file:
         json.dump(data, json_file, ensure_ascii=False, indent=4)
 
+def create_json_training_file_per_line(json_path, target_folder, examples_folder):
+    """
+    This function creates a JSON file for training by combining the original and dirty text files.
+    """
+    # Create a list to hold the data
+    data = []
+
+    # Iterate through all files in the target folder
+    for filename in os.listdir(target_folder):
+        if filename.endswith(".txt"):
+            file_path = os.path.join(target_folder, filename)
+            # Read the content of the original file
+            with open(file_path, 'r', encoding='utf-8') as file:
+                original_text = file.readlines()
+            
+            # Create a folder for the current file in the result folder
+            file_result_folder = os.path.join(examples_folder, os.path.splitext(filename)[0])
+            
+            # Iterate through all dirty examples for the current file
+            for example_filename in os.listdir(file_result_folder):
+                if example_filename.endswith(".txt"):
+                    example_file_path = os.path.join(file_result_folder, example_filename)
+                    # Read the content of the dirty example file
+                    with open(example_file_path, 'r', encoding='utf-8') as example_file:
+                        dirty_text = example_file.readlines()
+                    
+                    # Append the data to the list
+                    for original_line, dirty_line in zip(original_text, dirty_text):
+                        data.append({"text": dirty_line.strip(), "target": original_line.strip()})
+    
+    # Write the data to a JSON file
+    with open(json_path, 'w', encoding='utf-8') as json_file:
+        json.dump(data, json_file, ensure_ascii=False, indent=4)
+
 if __name__ == "__main__":
     # Define the target folder and result folder
     target_folder = 'train-data/target'
     result_folder = 'train-data/examples'
     
     # Generate data examples
-    generate_data_examples(target_folder, result_folder, num_examples=10, min_dirty=0.1, max_dirty=0.5)
+    generate_data_examples(target_folder, result_folder, num_examples=15, min_dirty=0.1, max_dirty=0.7)
 
     # Create the JSON training file
     json_file_path = 'train-data/train_data.json'
     create_json_training_file(json_file_path, target_folder, result_folder)
     print(f"Training data JSON file created at {json_file_path}")
+
+    # Create the JSON training file with per line
+    json_file_path_per_line = 'train-data/train_data_per_line.json'
+    create_json_training_file_per_line(json_file_path_per_line, target_folder, result_folder)
+    print(f"Training data JSON file (per line) created at {json_file_path_per_line}")
