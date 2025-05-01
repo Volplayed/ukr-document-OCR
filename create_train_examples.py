@@ -38,47 +38,47 @@ def make_dirty(text, strength=0.1):
         # replace i with one or two random characters
         replace_variants = ['i', 'I', 'l', '1']
         if random.random() < strength:
-            line = re.sub(r'i', random.choice(replace_variants), line)
+            line = re.sub(r'і', random.choice(replace_variants), line)
         
         # replace o with one or two random characters
         replace_variants = ['o', 'O', '0']
         if random.random() < strength:
-            line = re.sub(r'o', random.choice(replace_variants), line)
+            line = re.sub(r'о', random.choice(replace_variants), line)
 
         # replace e with one or two random characters
         replace_variants = ['e', 'E', '3']
         if random.random() < strength:
-            line = re.sub(r'e', random.choice(replace_variants), line)
+            line = re.sub(r'е', random.choice(replace_variants), line)
         
         # replace a with one or two random characters
         replace_variants = ['a', 'A', '4']
         if random.random() < strength:
-            line = re.sub(r'a', random.choice(replace_variants), line)
+            line = re.sub(r'а', random.choice(replace_variants), line)
         
         # replace s with one or two random characters
         replace_variants = ['s', 'S', '5']
         if random.random() < strength:
-            line = re.sub(r's', random.choice(replace_variants), line)
+            line = re.sub(r'з', random.choice(replace_variants), line)
         
         # replace t with one or two random characters
         replace_variants = ['t', 'T', '7']
         if random.random() < strength:
-            line = re.sub(r't', random.choice(replace_variants), line)
+            line = re.sub(r'т', random.choice(replace_variants), line)
         
         # replace g with one or two random characters
         replace_variants = ['g', 'G', '9']
         if random.random() < strength:
-            line = re.sub(r'g', random.choice(replace_variants), line)
+            line = re.sub(r'я', random.choice(replace_variants), line)
         
         # replace b with one or two random characters
         replace_variants = ['b', 'B', '8']
         if random.random() < strength:
-            line = re.sub(r'b', random.choice(replace_variants), line)
+            line = re.sub(r'в', random.choice(replace_variants), line)
         
         # replace l with one or two random characters
         replace_variants = ['l', 'L', '1']
         if random.random() < strength:
-            line = re.sub(r'l', random.choice(replace_variants), line)
+            line = re.sub(r'і', random.choice(replace_variants), line)
         
         # randomly change some words by replacing, removing, moving, or adding characters
         words = line.split()

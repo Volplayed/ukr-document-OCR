@@ -48,8 +48,8 @@ class UkrainianOCR:
             print("Could not verify language availability. Make sure Tesseract is properly installed.")
 
         # Create a default preprocessor if none provided
-        self.preprocessor = preprocessor if preprocessor else ImagePreprocessor()
-        self.postprocessor = postprocessor if postprocessor else PostProcessor()
+        self.preprocessor = preprocessor if preprocessor else Preprocessor()
+        self.postprocessor = postprocessor if postprocessor else Postprocessor()
 
         # Custom configuration
         self.custom_config = None

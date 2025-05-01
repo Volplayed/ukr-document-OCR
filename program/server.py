@@ -52,6 +52,12 @@ async def extract_text(file: UploadFile = File(...)):
     Returns:
         Extracted text from the image
     """
+    # Check file extension
+    allowed_extensions = {"png", "jpg", "jpeg"}
+    file_extension = file.filename.split(".")[-1].lower()
+    if file_extension not in allowed_extensions:
+        return {"error": "Unsupported file type. Only PNG, JPG, and JPEG files are allowed."}
+
     # Save the uploaded file temporarily
     try:
         temp_file_path = f"/tmp/{file.filename}"
