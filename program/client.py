@@ -17,13 +17,31 @@ def extract_text_from_image(image):
         return f"Error: {response.status_code}, {response.text}"
 
 # Create the Gradio interface
+
+submit_btn = gr.Button(
+    "Витягнути текст",
+    variant="primary",
+)
+
+clear_btn = gr.Button(
+    "Очистити",
+    variant="secondary",
+    elem_id="clear_btn",
+)
+
 interface = gr.Interface(
     fn=extract_text_from_image,
     inputs=gr.Image(type="filepath"),
-    outputs="text",
+    outputs=gr.Textbox(label="Результат тексту"),
     title="OCR Україномовних Документів",
     description="Завантажте зображення документа, щоб витягти текст.",
+    allow_flagging="never",
+    examples=None,
+    submit_btn=submit_btn,
+    clear_btn=clear_btn,
     theme="default",
+    live=False,
+    analytics_enabled=False,
 )
 
 # Launch the interface
