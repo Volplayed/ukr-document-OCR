@@ -35,7 +35,7 @@ class Postprocessor:
       if correction_type == "pl":
           divider = "\n"
       elif correction_type == "pp":
-          divider = "\n"
+          divider = "\n\n"
 
       corrected = []
 
