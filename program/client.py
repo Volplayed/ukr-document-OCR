@@ -19,7 +19,7 @@ def extract_text_from_image(image):
 # Create the Gradio interface
 
 submit_btn = gr.Button(
-    "Витягнути текст",
+    "Видобути текст",
     variant="primary",
 )
 
@@ -42,7 +42,7 @@ image_input = gr.Image(
 
 text_output = gr.Textbox(
     label="Результат тексту",
-    placeholder="Тут з'явиться витягнутий текст",
+    placeholder="Тут з'явиться видобутий текст",
     lines=10,
     interactive=False,
     visible=True,
@@ -51,7 +51,7 @@ text_output = gr.Textbox(
 interface = gr.Interface(
     fn=extract_text_from_image,
     inputs=image_input,
-    outputs=gr.Textbox(label="Результат тексту"),
+    outputs=gr.Textbox(label="Результат"),
     title="OCR Україномовних Документів",
     description="Завантажте зображення документа, щоб витягти текст.",
     allow_flagging="never",
